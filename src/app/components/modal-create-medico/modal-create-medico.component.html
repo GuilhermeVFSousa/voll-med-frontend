@@ -1,0 +1,192 @@
+<div class="container">
+  <div style="margin: 10px 0px 0px 25px;">
+    <h2>Cadastrar Médico</h2>
+  </div>
+  <div class="dv-table">
+    <div class="dv-table-left">
+      <div mat-dialog-content class="column-align">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input
+          matInput
+          [(ngModel)]="medico.nome"
+            name="nome"
+            [formControl]="nome"
+            maxlength="150"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input
+          matInput
+          [(ngModel)]="medico.email"
+            name="email"
+            maxlength="150"
+            [formControl]="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            title="Invalid email address"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CRM</mat-label>
+          <input
+          matInput
+          [(ngModel)]="medico.crm"
+            name="crm"
+            [formControl]="crm"
+            minlength="4"
+            maxlength="6"
+            oninput="this.value=this.value.replace(/[^\d]/,'')"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Especialidade</mat-label>
+          <mat-select
+          [formControl]="especialidade"
+          [(ngModel)]="medico.especialidade"
+          >
+            <mat-option *ngFor=" let esp of especialidades"
+            value="{{ esp.toUpperCase() }}"
+            required
+            (change)="checkValidity()"
+            >
+              {{ esp.toUpperCase() }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input
+            matInput
+            [formControl]="telefone"
+            [(ngModel)]="medico.telefone"
+            (ngModelChange)="formatPhone()"
+            maxlength="15"
+            minlength="14"
+            name="logradouro"
+            oninput="this.value=this.value.replace(/[^\d]/,'')"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="dv-table-right">
+      <div mat-dialog-content class="column-align">
+        <mat-form-field appearance="outline">
+          <mat-label>CEP</mat-label>
+          <div style="display: flex; flex-direction: row;">
+            <input
+              matInput
+              [formControl]="cep"
+              [(ngModel)]="medico.endereco.cep"
+              name="cep"
+              value="{{ endereco.cep }}"
+              required
+              type="text"
+              minlength="8"
+              maxlength="8"
+              oninput="this.value=this.value.replace(/[^\d]/,'')"
+              title="Digite somente números (máximo de 8)"
+              (change)="checkValidity()"
+            >
+            <button
+              (click)="getAddress(medico.endereco.cep)"
+              mat-flat-button style="background-color:#308873; color: #fff;width: 100px;"  cdkFocusInitial>Buscar
+            </button>
+
+          </div>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Logradouro</mat-label>
+          <input
+            [formControl]="logradouro"
+            matInput
+            maxlength="255"
+            [(ngModel)]="medico.endereco.logradouro"
+            value="{{ endereco.logradouro}}"
+            name="logradouro"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input
+            [formControl]="bairro"
+            matInput
+            maxlength="150"
+            [(ngModel)]="medico.endereco.bairro"
+            name="bairro"
+            value="{{ endereco.bairro }}"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input
+            [formControl]="numero"
+            matInput
+            [(ngModel)]="medico.endereco.numero"
+            name="numero"
+            maxlength="15"
+            required
+            (change)="checkValidity()">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Complemento</mat-label>
+          <input
+          matInput
+          [(ngModel)]="medico.endereco.complemento"
+            name="complemento"
+            maxlength="254"
+            (change)="checkValidity()">
+        </mat-form-field>
+        <div style="display: flex; flex-direction: row; width: 100%;">
+          <mat-form-field appearance="outline" style="margin-right: 15px;">
+            <mat-label>Estado {{medico.endereco.uf}}</mat-label>
+            <input
+              matInput
+              readonly
+              maxlength="2"
+              [(ngModel)]="medico.endereco.uf"
+              [value]="endereco.uf"
+              oninput="endereco.uf"
+              (change)="checkValidity()">
+
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input
+              maxlength="100"
+              matInput
+              readonly
+              [(ngModel)]="medico.endereco.cidade"
+              [value]="endereco.localidade"
+              oninput="endereco.localidade"
+              (change)="checkValidity()">
+
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-stroked-button [mat-dialog-close]="" (click)="onNoClick()">Cancelar</button>
+  <button *ngIf="!submitting"
+  (click)="insert()"
+  [disabled]="!formIsValid || submitting"
+  class="btn-fillup"
+  style="width: 100px;" cdkFocusInitial
+  >
+    <span>Confirmar</span>
+  </button>
+  <mat-spinner *ngIf="submitting" style="height: 35px; width: 35px; margin-left: 25px;"></mat-spinner>
+</div>
+
+

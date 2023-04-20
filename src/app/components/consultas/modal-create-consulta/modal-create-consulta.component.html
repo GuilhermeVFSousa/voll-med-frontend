@@ -1,0 +1,129 @@
+<div class="container">
+  <div style="margin: 10px 0px 0px 25px;">
+    <h2>Agendar Consulta</h2>
+  </div>
+  <div class="dv-table">
+    <div mat-dialog-content class="column-align">
+      <form  *ngIf="medico?.id == undefined" class="form">
+        <mat-form-field appearance="outline" class="width">
+          <mat-label>Selecione o Médico</mat-label>
+          <mat-icon-button matIconPrefix style="margin-left: 10px;">
+            <mat-icon>search</mat-icon>
+          </mat-icon-button>
+          <mat-icon-button matIconSuffix style="margin-right: 10px; cursor: pointer;">
+            <mat-icon>expand_more</mat-icon>
+          </mat-icon-button>
+          <input
+            matInput
+            [matAutocomplete]="autoMedicos"
+            (keyup)="changeFilteredMedicos($any($event.target).value)"
+            [formControl]="medicoSelect"
+            [(ngModel)]="medico"
+            (ngModelChange)="checkValidity()"
+            value="{{medico?.nome}}"
+          />
+          <mat-autocomplete #autoMedicos
+            (optionSelected)="medico"
+          >
+            <mat-option *ngFor="let medico of filteredMedicos" [value]="medico">
+              <span>{{ medico?.nome }}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <form  *ngIf="medico?.id != undefined" class="form">
+        <mat-form-field appearance="outline" class="width">
+          <mat-label>Agendamento para</mat-label>
+          <input
+            matInput
+            readonly
+            value="{{medico?.nome}}"
+          />
+        </mat-form-field>
+      </form>
+    </div>
+      <div mat-dialog-content class="column-align">
+        <form class="form">
+          <mat-form-field appearance="outline" class="width">
+            <mat-label>Selecione o Paciente</mat-label>
+            <mat-icon-button matIconPrefix style="margin-left: 10px;">
+              <mat-icon>search</mat-icon>
+            </mat-icon-button>
+            <mat-icon-button matIconSuffix style="margin-right: 10px; cursor: pointer;">
+              <mat-icon>expand_more</mat-icon>
+            </mat-icon-button>
+            <input
+              matInput
+              [matAutocomplete]="autoPacientes"
+              (keyup)="changeFilteredPacientes($any($event.target).value)"
+              [formControl]="pacienteSelect"
+              [(ngModel)]="paciente"
+              (ngModelChange)="checkValidity()"
+              value="{{paciente?.nome}}"
+            />
+            <mat-autocomplete #autoPacientes
+              (optionSelected)="this.autoPacientes"
+            >
+              <mat-option *ngFor="let paciente of filteredPacientes" [value]="paciente">
+                <span>{{ paciente.nome }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div class="form">
+        <div mat-dialog-content class="column-align">
+          <mat-form-field appearance="outline">
+            <input
+              [formControl]="data"
+              matInput [ngxMatDatetimePicker]="pickerTest"
+              placeholder="Selecione uma data"
+              (ngModelChange)="checkValidity()"
+              [min]="minDate"
+              [max]="maxDate"
+              [(ngModel)]="selectedDate"
+              (dateChange)="formatDate($any($event.target).value)">
+            <mat-datepicker-toggle matSuffix [for]="$any(pickerTest)" (click)="styleDataTimerPicker()">
+            </mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+            #pickerTest
+            [showSpinners]="true"
+            [enableMeridian]="false">
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div mat-dialog-content class="column-align">
+        <form class="form">
+          <mat-form-field appearance="outline" class="width">
+            <mat-label>Selecione a duração</mat-label>
+            <mat-select
+              matInput
+              (ngModelChange)="checkValidity()"
+              [formControl]="duracao"
+              [(ngModel)]="duracaoSelected">
+              <mat-option *ngFor="let duracao of duracaoConsulta" [value]="duracao">
+                <span>{{ duracao }} minutos</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-stroked-button [mat-dialog-close]="" (click)="onNoClick()">Cancelar</button>
+  <button *ngIf="!submitting"
+  (click)="insert()"
+  [disabled]="!formIsValid || submitting"
+  class="btn-fillup"
+  style="width: 100px;" cdkFocusInitial
+  >
+    <span>Confirmar</span>
+  </button>
+  <mat-spinner *ngIf="submitting" style="height: 35px; width: 35px; margin-left: 25px;"></mat-spinner>
+</div>
+
+

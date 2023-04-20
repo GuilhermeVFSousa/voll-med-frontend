@@ -1,0 +1,46 @@
+<nav class="menu-container">
+  <!-- burger menu -->
+  <input type="checkbox" aria-label="Toggle menu" />
+  <span></span>
+  <span></span>
+  <span></span>
+
+  <a href="#" class="menu-logo">
+    <img src="./../../../assets/img/logo.png" alt="Voll Med"/>
+  </a>
+
+  <div class="menu">
+    <ul>
+      <li>
+        <a [routerLink]="['home']">
+          Início
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['medicos']">
+          Médicos
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['pacientes']">
+          Pacientes
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['consultas']">
+          Consultas
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li class="b-logout">
+        <a (click)="sair()">
+          Sair
+        <fa-icon [icon]="faArrowRightFromBracket" style="margin-left: 4px;"></fa-icon>
+      </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

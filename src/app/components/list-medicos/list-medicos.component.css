@@ -1,0 +1,109 @@
+.container{
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+}
+
+.table-list-medicos{
+  border-spacing: 1;
+  border-collapse: collapse;
+  background:#f5fffd;
+  border-radius:6px;
+  overflow:hidden;
+  margin:0 auto;
+  position:relative;
+}
+
+
+.table-list-medicos th {
+  background:#308873;
+  color: #ffffff;
+}
+
+.responsive-table {
+  overflow-x: auto;
+}
+
+.dv-head {
+  align-items: flex-end;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  .container{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .responsive-table {
+    display: block;
+  }
+
+  .responsive-table .mat-header-row {
+    display: none;
+  }
+
+  .responsive-table .mat-row {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+
+  .responsive-table .mat-cell {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .responsive-table .mat-cell:first-child {
+    font-weight: bold;
+    width: 50%;
+  }
+
+}
+
+.btn-fixed{
+  color: #ffff;
+  font-size: 16px;
+  width: 200px;
+  background-color: #308873;
+  padding: 8px 15px ;
+  border: solid rgb(102, 161, 149) 1px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 6px;
+  transition : 1000ms;
+  transform: translateY(0);
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  cursor: pointer;
+  }
+  .btn-fixed fa-icon{
+    font-size: 24px;
+    }
+
+  .btn-fixed:hover{
+  transition : 1000ms;
+  transform : translateY(-0px);
+  background-color: #135f4d;
+  border: solid #3d7467 1px;
+  color: #ffffff;
+  }
+
+  .search-input-medicos {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  ::ng-deep .mat-sort-header-arrow {
+    color: #ffffff;
+  }
+
+

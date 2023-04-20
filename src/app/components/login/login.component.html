@@ -1,0 +1,44 @@
+<body>
+  <div class="logo"><img src="./../../../assets/img/logo-large.png" alt="Voll Med"/></div>
+  <div id="box">
+      <div class="card">
+          <div class="card__face card__face--front">
+              <div class="input-container">
+                  <div class="icon-wrapper"><fa-icon  class="fa fa-user" [icon]="faUser"></fa-icon></div>
+                  <input
+                    [formControl]="login"
+                    [(ngModel)]="creds.login"
+                    name="email"
+                    required="required"
+                    placeholder="email@email.com"
+                    maxlength="150"
+                    id="UserEmail"
+                  >
+              </div>
+              <div class="input-container">
+                  <div class="icon-wrapper"><fa-icon  class="fa fa-lock" [icon]="faLock"></fa-icon></div>
+                  <input
+                    type="password"
+                    [formControl]="senha"
+                    [(ngModel)]="creds.senha"
+                    name="password"
+                    required="required"
+                    placeholder="senha"
+                    maxlength="50"
+                    id="UserSenha"
+                  >
+              </div>
+              <div class="input-container">
+                  <input type="checkbox" id="checkbox" name="checkbox" value="Lembrar-me?" >
+                  <label for="checkbox">Lembrar-me?</label>
+              </div>
+              <div class="input-container">
+                  <input class="b-sign" type="submit" (click)="logar()" value="Entrar">
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+</body>

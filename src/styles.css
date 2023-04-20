@@ -1,1 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.label-section {
+  font-size: 25px;
+  color: #135f4d;
+  font-weight: 500;
+}
+
+.label-section fa-icon{
+  margin-right: 8px;
+  color: #135f4d;
+}
+
+.btn-fillup {
+	color: white;
+  background-color: #135f4d;
+	text-align: center;
+	position: relative;
+	display: inline-block;
+	padding: 10px;
+	overflow: hidden;
+	border: 0;
+  transition:all .5s ease !important;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.btn-fillup:hover {
+    background: #247e69;
+    color: white;
+    border: 0px solid transparent;
+  }
+
+
+.btn-fillup:after {
+  position: absolute;
+  content: '';
+  left: 50%;
+  top: 60px;
+  width: 200px;
+  height: 200px;
+  margin: 0 0 0 -100px;
+  border: 0;
+  z-index: -1;
+  transform:(traslateY(0px));
+  transition:(transform 0.3s ease-out);
+}
+
+.btn-fillup:hover:after {
+  transform:(translateY(-100px));
+}
+
+.btn-fillup:disabled {
+  background: #3c81718e;
+}
+
+.btn-fixed{
+  color: #ffff;
+  font-size: 16px;
+  width: 200px;
+  background-color: #308873;
+  padding: 8px 15px ;
+  border: solid rgb(102, 161, 149) 1px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 6px;
+  transition : 1000ms;
+  transform: translateY(0);
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  cursor: pointer;
+  }
+  .btn-fixed fa-icon{
+    font-size: 24px;
+    }
+
+  .btn-fixed:hover{
+  transition : 1000ms;
+  transform : translateY(-0px);
+  background-color: #135f4d;
+  border: solid #3d7467 1px;
+  color: #ffffff;
+  }
+

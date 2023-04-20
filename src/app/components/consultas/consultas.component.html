@@ -1,0 +1,49 @@
+  <div class="container">
+    <div class="container__main">
+      <div class="dv-head">
+        <form class="form">
+          <mat-form-field appearance="outline" class="width" style="width: 500px;">
+            <mat-label>Selecione o Médico</mat-label>
+            <mat-icon-button matIconPrefix style="margin-left: 10px;">
+              <mat-icon>search</mat-icon>
+            </mat-icon-button>
+            <mat-icon-button matIconSuffix style="margin-right: 10px; cursor: pointer;">
+              <mat-icon>expand_more</mat-icon>
+            </mat-icon-button>
+            <input
+              matInput
+              [matAutocomplete]="test"
+              (keyup)="changeFilteredMedicos($any($event.target).value)"
+              [formControl]="medicoSelect"
+              [(ngModel)]="medico"
+              value="{{medico?.nome}}"
+            />
+            <mat-autocomplete #test
+              (optionSelected)="findAllConsultasByMedico($event.option.value.id)"
+            >
+              <mat-option *ngFor="let medico of filteredMedicos" [value]="medico">
+                <span>{{ medico.nome }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+
+        <button class="btn-fixed"
+        (click)="openModal()">
+          <fa-icon class="icons-btn-home" [icon]="faCirclePlus"></fa-icon>
+        Agendar Consulta</button>
+
+      </div>
+      <div class='container__calendar'>
+        <full-calendar *ngIf='calendarVisible' [options]='calendarOptions'
+        (ngModelChange)="ngOnInit">
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.timeText }}</b>
+            <br>
+            <i>{{ arg.event.title }}</i>
+          </ng-template>
+        </full-calendar>
+      </div>
+    </div>
+  </div>
+

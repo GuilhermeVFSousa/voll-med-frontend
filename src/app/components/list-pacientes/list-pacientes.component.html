@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div class="dv-head">
+    <label class="label-section">
+      <fa-icon class="icons-btn-home" [icon]="faAnglesRight"></fa-icon>
+      Pacientes</label>
+    <button class="btn-fixed"
+     (click)="openModal()">
+      <fa-icon class="icons-btn-home" [icon]="faCirclePlus"></fa-icon>
+      Adicionar Paciente</button>
+  </div>
+  <div style="font-size: 10px;">
+    <mat-form-field class="search-input-pacientes" appearance="outline">
+      <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar Paciente..." #input>
+      <mat-icon matIconPrefix>search</mat-icon>
+    </mat-form-field>
+
+  </div>
+
+  <mat-paginator
+    [pageSizeOptions]="[10, 20, 50, 100]"
+    showFirstLastButtons
+    aria-label="Selecione a página"
+  >
+  </mat-paginator>
+
+  <table mat-table [dataSource]="dataSource"
+  matSort
+  class="table-list-pacientes responsive-table mat-elevation-z3">
+
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+      <td mat-cell *matCellDef="let paciente"> {{paciente.nome}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> E-mail </th>
+      <td mat-cell *matCellDef="let paciente"> {{paciente.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cpf">
+      <th mat-header-cell *matHeaderCellDef> CPF </th>
+      <td mat-cell *matCellDef="let paciente"> {{paciente.cpf}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+
+

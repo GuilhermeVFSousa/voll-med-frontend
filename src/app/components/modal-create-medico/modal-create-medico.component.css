@@ -1,0 +1,74 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: column;
+  align-items: flex-start;
+}
+
+.dv-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: row;
+}
+
+.dv-table-left {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+}
+
+.dv-table-right {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+}
+
+.column-align {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+}
+
+.column-align mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background-color: white;
+}
+
+@media only screen and (max-width: 767px) {
+  .dv-table {
+    display: flex;
+    align-items: flex-start;
+    flex-flow: column;
+  }
+  .dialog-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    align-items: center;
+  }
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #135f4d;
+}
