@@ -59,6 +59,10 @@
   color: #fff;
 }
 
+.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-list-event:hover {
+  background-color: #2ea388 !important;
+}
+
 .fc-today {
   background-color: #d1ffea !important;
 }

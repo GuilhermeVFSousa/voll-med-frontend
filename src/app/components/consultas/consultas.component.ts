@@ -224,8 +224,9 @@ export class ConsultasComponent implements OnInit {
   }
 
   styleCalendar() {
-    const elements_1 = this.elementRef.nativeElement.querySelectorAll('.fc-event-content, .fc-event-time, .fc-event-title');
+    const elements_1 = this.elementRef.nativeElement.querySelectorAll('.fc-event-content, .fc-event-time, .fc-event-title, .fc-list-event-time');
     for (const element of elements_1) {
+      element.className = "";
       element.classList.add('fc-event');
     }
 
