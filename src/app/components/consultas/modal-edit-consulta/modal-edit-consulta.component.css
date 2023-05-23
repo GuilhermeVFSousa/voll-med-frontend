@@ -1,0 +1,105 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: column;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.dv-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-flow: column;
+}
+
+.dv-table-left {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-flow: column;
+}
+
+.dv-table-right {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+}
+
+.column-align {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-flow: column;
+}
+
+.column-align mat-form-field {
+  width: 100%;
+}
+
+.form {
+  width: 100%;
+
+}
+
+.dialog-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background-color: white;
+}
+
+@media only screen and (max-width: 767px) {
+  .dv-table {
+    display: flex;
+    align-items: flex-start;
+    flex-flow: column;
+  }
+  .dialog-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    align-items: center;
+  }
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #135f4d;
+}
+
+.mat-calendar-body-selected {
+  background-color: #135f4d !important;
+  color: #fff;
+}
+
+.mat-icon-button {
+  padding: 0;
+  min-width: 0;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: #247c68 !important;
+}
+
+.ttttttts {
+  font-size: 19px !important;
+}

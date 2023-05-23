@@ -1,0 +1,56 @@
+<div class="container">
+  <div style="margin: 10px 0px 0px 25px;">
+    <h2>Detalhes da Consulta</h2>
+  </div>
+  <div class="dv-table">
+    <div mat-dialog-content class="column-align">
+
+      <form class="form">
+        <mat-form-field appearance="outline" class="width">
+          <mat-label>Médico</mat-label>
+          <input
+            matInput
+            readonly
+            value="{{consulta.medico.nome}}"
+          />
+        </mat-form-field>
+      </form>
+
+      <form class="form">
+        <mat-form-field appearance="outline" class="width">
+          <mat-label>Paciente</mat-label>
+          <input
+            matInput
+            readonly
+            value="{{consulta.paciente.nome}}"
+          />
+        </mat-form-field>
+      </form>
+
+      <form class="form">
+        <mat-form-field appearance="outline" class="width">
+          <mat-label>Data da consulta e duração</mat-label>
+          <input
+            matInput
+            readonly
+            value="{{dataConsulta}} | {{duracao}} minutos"
+          />
+        </mat-form-field>
+      </form>
+
+    </div>
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-stroked-button [mat-dialog-close]="">Cancelar</button>
+  <button *ngIf="!submitting"
+  [disabled]="submitting"
+  class="btn-fillup"
+  style="width: 100px;" cdkFocusInitial
+  >
+    <span>Confirmar</span>
+  </button>
+  <mat-spinner *ngIf="submitting" style="height: 35px; width: 35px; margin-left: 25px;"></mat-spinner>
+</div>
+
+

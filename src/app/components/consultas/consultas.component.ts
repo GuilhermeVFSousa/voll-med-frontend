@@ -1,21 +1,20 @@
-import interactionPlugin from '@fullcalendar/interaction';
-
-import { Component, ChangeDetectorRef, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, Renderer2, Inject } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, EventInput } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import { ConsultaService } from '../../services/consulta.service';
-import { Consulta } from 'src/app/models/Consulta';
 import { DOCUMENT } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventInput } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { Consulta } from 'src/app/models/Consulta';
 import { Medico } from 'src/app/models/medico';
 import { ListMedicosService } from 'src/app/services/medico.service';
-import { Observable, map, startWith } from 'rxjs';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog } from '@angular/material/dialog';
+
+import { ConsultaService } from '../../services/consulta.service';
 import { ModalCreateConsultaComponent } from './modal-create-consulta/modal-create-consulta.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalEditConsultaComponent } from './modal-edit-consulta/modal-edit-consulta.component';
 
 @Component({
   selector: 'app-consultas',
@@ -98,9 +97,7 @@ export class ConsultasComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private consultaService: ConsultaService,
     private listMedicosService: ListMedicosService,
-    private elementRef: ElementRef,
     public dialog: MatDialog,
-    @Inject(DOCUMENT) private document: Document,
     ) {
 
   }
@@ -109,11 +106,7 @@ export class ConsultasComponent implements OnInit {
     this.findAllMedicos();
   }
 
-  ngAfterViewInit() {
-    this.styleCalendar();
-  }
-
-  openModal(): void {
+  openModalCreate(): void {
     this.dialog.open(ModalCreateConsultaComponent, {
       maxWidth: '600px',
       maxHeight: '700px',
@@ -128,6 +121,18 @@ export class ConsultasComponent implements OnInit {
         this.findAllConsultasByMedico(medicoGlobal);
       });
     }
+
+  }
+
+  openModalEdit(consultaId: Number | String): void {
+    this.dialog.open(ModalEditConsultaComponent, {
+      maxWidth: '600px',
+      maxHeight: '380px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal',
+      data: { id: consultaId }
+    });
 
   }
 
@@ -179,13 +184,11 @@ export class ConsultasComponent implements OnInit {
 
   handleCalendarToggle() {
     this.calendarVisible = !this.calendarVisible;
-    this.styleCalendar();
   }
 
   handleWeekendsToggle() {
     const { calendarOptions } = this;
     calendarOptions.weekends = !calendarOptions.weekends;
-    this.styleCalendar();
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -211,42 +214,12 @@ export class ConsultasComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.id}'`)) {
-      clickInfo.event.remove();
-    }
-    this.styleCalendar();
+    this.openModalEdit(clickInfo.event.id)
   }
 
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
     this.cdr.detectChanges();
-    this.styleCalendar();
   }
 
-  styleCalendar() {
-    const elements_1 = this.elementRef.nativeElement.querySelectorAll('.fc-event-content, .fc-event-time, .fc-event-title, .fc-list-event-time');
-    for (const element of elements_1) {
-      element.className = "";
-      element.classList.add('fc-event');
-    }
-
-    const elements_2 = this.elementRef.nativeElement.querySelectorAll('.fc-button-primary');
-    for (const element of elements_2) {
-      element.classList.add('fc-button-primary');
-    }
-
-    const elements_3 = this.elementRef.nativeElement.querySelectorAll('.fc-day-today .fc-daygrid-day-frame, .fc-day-today');
-    for (const element of elements_3) {
-      element.classList.add('fc-today');
-    }
-
-    const elements_4 = this.elementRef.nativeElement.querySelector('.fc-button-active');
-    elements_4.classList.add('fc-button-active');
-
-    const elements_5 = this.elementRef.nativeElement.querySelectorAll('.fc-scroller');
-    for(const element of elements_5) {
-      element.classList.add('fc-custom-scrollbar');
-    }
-
-  }
 }

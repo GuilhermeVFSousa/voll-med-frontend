@@ -14,7 +14,7 @@
 }
 
 .dv-btn-home {
-  background-color: #308873;
+  background-color: var(--primary);
   margin: 20px;
   width: 80%;height: 150px;
   display: flex;
@@ -31,7 +31,7 @@
 .dv-btn-home:hover {
   transition : 1000ms;
   transform : translateY(-0px);
-  background-color: #135f4d;
+  background-color: var(--green-dark-hover);
 }
 
 .icons-btn-home {

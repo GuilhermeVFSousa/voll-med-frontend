@@ -20,6 +20,10 @@ export class ConsultaService {
     return this.http.get<Consulta[]>(`${API_CONFIG.baseUrl}/consultas/medico/${id}`);
   }
 
+  findById(id: number): Observable<Consulta> {
+    return this.http.get<Consulta>(`${API_CONFIG.baseUrl}/consultas/${id}`);
+  }
+
   createConsulta(consulta: ConsultaCreate): Observable<ConsultaCreate> {
     return this.http.post<ConsultaCreate>(`${API_CONFIG.baseUrl}/consultas`, consulta);
   }

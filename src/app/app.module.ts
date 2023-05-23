@@ -46,6 +46,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { CustomMatPaginatorIntl } from './Utils/custom-mat-paginator-intl';
+import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
 
 
 
@@ -87,6 +88,7 @@ const appRoutes: Routes = [
     ModalCreatePacienteComponent,
     ConsultasComponent,
     ModalCreateConsultaComponent,
+    ModalEditConsultaComponent
   ],
   imports: [
     BrowserModule,
