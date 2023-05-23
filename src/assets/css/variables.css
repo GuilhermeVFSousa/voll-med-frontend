@@ -1,0 +1,10 @@
+:root {
+  --primary:#308873;
+  --secondary:var(--primary);
+  --green-dark-hover:#135f4d;
+  --green-light-hover:#2ea388;
+  --green-grey-bg:#719c92;
+  --primary-text-light:#fff;
+
+
+}
