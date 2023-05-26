@@ -11,7 +11,7 @@ import moment from 'moment';
 })
 export class ModalEditConsultaComponent implements OnInit {
 
-  consulta!: Consulta
+  consulta?: Consulta
   dataConsulta!: string
   duracao!: Number
   submitting = false

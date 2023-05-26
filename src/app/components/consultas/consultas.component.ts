@@ -77,7 +77,7 @@ export class ConsultasComponent implements OnInit {
       daysOfWeek: [1, 2, 3, 4, 5]
     },
     weekends: true,
-    editable: true,
+    editable: false,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
@@ -106,13 +106,14 @@ export class ConsultasComponent implements OnInit {
     this.findAllMedicos();
   }
 
-  openModalCreate(): void {
+  openModalCreate(dataConsulta: Date | null): void {
     this.dialog.open(ModalCreateConsultaComponent, {
       maxWidth: '600px',
       maxHeight: '700px',
       height: '90%',
       width: '90%',
       panelClass: 'full-screen-modal',
+      data: { dataConsulta: dataConsulta}
     });
 
     const medicoGlobal = this.listMedicosService.medicoGlobal.getValue().id;
@@ -187,30 +188,13 @@ export class ConsultasComponent implements OnInit {
   }
 
   handleWeekendsToggle() {
+    alert("handleWeekendsToggle")
     const { calendarOptions } = this;
     calendarOptions.weekends = !calendarOptions.weekends;
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    console.log(selectInfo)
-    const title = prompt('Please enter a new title for your event');
-    const calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: "1111",
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-      setTimeout(() => {
-        console.log(this.INITIAL_EVENTS);
-
-      }, 300);
-    }
+    this.openModalCreate(selectInfo.start);
   }
 
   handleEventClick(clickInfo: EventClickArg) {

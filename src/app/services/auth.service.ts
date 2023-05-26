@@ -44,11 +44,21 @@ export class AuthService {
     return false;
   }
 
+  getTokenDecoded() {
+    let token = this.getToken();
+    let decoded = (this.jwtService.decodeToken(token));
+    console.log(this.jwtService.decodeToken(token));
+    if(decoded != null || decoded !=undefined) {
+      console.log(decoded.superUser);
+    }
+  }
+
   logout() {
     this.token.next({
       token:'',
       user:'',
       expiration:''
     });
+    location.reload();
   }
 }

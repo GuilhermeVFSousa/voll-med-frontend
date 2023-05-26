@@ -63,7 +63,7 @@ export class ModalCreateConsultaComponent implements OnInit {
   };
 
   idPaciente: FormControl = new FormControl('', Validators.required);
-  data: FormControl = new FormControl('', Validators.required);
+  dataInfo: FormControl = new FormControl('', Validators.required);
   duracao: FormControl = new FormControl('null', Validators.required);
 
   selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
@@ -73,6 +73,7 @@ export class ModalCreateConsultaComponent implements OnInit {
   duracaoSelected!: number;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { dataConsulta: Date | null },
     public dialogRef: MatDialogRef<ModalCreateConsultaComponent>,
     private pacienteService: PacienteService,
     private listMedicosService: ListMedicosService,
@@ -84,10 +85,14 @@ export class ModalCreateConsultaComponent implements OnInit {
     this.minDate.setHours(this.nowHour - 24);
     this.maxDate.setMonth(this.nowMouth + 12);
     this.selectedDate.setHours(this.nowHour - 3);
-
   }
 
   ngOnInit(): void {
+    if (this.data.dataConsulta != null) {
+      this.selectedDate = this.data.dataConsulta
+      this.selectedDate.setHours(this.selectedDate.getHours() - 3);
+      this.formatDate(this.selectedDate);
+    }
     this.listMedicosService.medicoGlobal.subscribe(data => {
       if(data.id != undefined) {
         this.medico = data;
@@ -141,7 +146,7 @@ export class ModalCreateConsultaComponent implements OnInit {
 
     if(
       this.pacienteSelect.valid &&
-      this.data.valid &&
+      this.dataInfo.valid &&
       this.duracao.valid
     ) {
       this.formIsValid = true;

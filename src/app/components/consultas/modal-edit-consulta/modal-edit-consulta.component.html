@@ -11,7 +11,7 @@
           <input
             matInput
             readonly
-            value="{{consulta.medico.nome}}"
+            value="{{consulta?.medico!.nome}}"
           />
         </mat-form-field>
       </form>
@@ -22,7 +22,7 @@
           <input
             matInput
             readonly
-            value="{{consulta.paciente.nome}}"
+            value="{{consulta?.paciente!.nome}}"
           />
         </mat-form-field>
       </form>

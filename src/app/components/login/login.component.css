@@ -9,8 +9,8 @@ body{
 }
 
 .logo {
-  margin-top: 25px;
-z-index: 999;
+  margin-top: 55px;
+  z-index: 999;
 }
 
 #box{
@@ -159,7 +159,7 @@ input[id="checkbox"]:checked::after {
 }
 
 .logo img {
-  height: 150px;
+  height: 200px;
 }
 
 @media screen and (max-width: 600px) {
@@ -168,6 +168,9 @@ input[id="checkbox"]:checked::after {
         margin-top: 220px;
         margin-left: 20px;
         margin-right: 20px;
+    }
+    .logo {
+      margin-top: 25px;
     }
     .logo img {
       margin-top: 10px;
