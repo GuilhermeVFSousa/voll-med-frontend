@@ -47,6 +47,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { CustomMatPaginatorIntl } from './Utils/custom-mat-paginator-intl';
 import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
+import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
 
 
 
@@ -120,7 +121,7 @@ const appRoutes: Routes = [
     MatMomentDateModule,
   ],
   entryComponents: [ModalCreateConsultaComponent],
-  providers: [AuthInterceptorProvider, CdkScrollable, {
+  providers: [AuthInterceptorProvider, UnauthorizedInterceptorProvider, CdkScrollable, {
     provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl
   },
   {
