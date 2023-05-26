@@ -31,6 +31,11 @@
           Consultas
         </a>
       </li>
+      <li *ngIf="isSuperUser()">
+        <a [routerLink]="['medicos']">
+          Usuários
+        </a>
+      </li>
     </ul>
     <ul>
       <li class="b-logout">

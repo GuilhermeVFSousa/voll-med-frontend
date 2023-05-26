@@ -77,6 +77,9 @@ export class ListMedicosComponent implements OnInit {
       width: '90%',
       panelClass: 'full-screen-modal',
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
 }

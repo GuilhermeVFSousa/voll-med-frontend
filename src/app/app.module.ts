@@ -48,6 +48,7 @@ import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { CustomMatPaginatorIntl } from './Utils/custom-mat-paginator-intl';
 import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
+import { RoleGuard } from './guard/role.guard';
 
 
 
@@ -67,12 +68,12 @@ const MY_NGX_DATE_FORMATS: NgxMatDateFormats = {
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
-  { path: '', component: NavbarComponent, canActivate: [AuthGuard], children: [
+  { path: '', component: NavbarComponent, canActivate: [AuthGuard],  children: [
     { path: 'home', component: HomeComponent },
-    { path: 'medicos', component: ListMedicosComponent },
+    { path: 'medicos', component: ListMedicosComponent},
     { path: 'pacientes', component: ListPacientesComponent },
     { path: 'consultas', component: ConsultasComponent },
-    { path: 'add', component: ModalCreateMedicoComponent },
+    { path: 'usuarios', component: ListMedicosComponent, canActivate: [RoleGuard]},
   ]},
 
 ];
