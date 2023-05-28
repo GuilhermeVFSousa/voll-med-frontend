@@ -43,9 +43,7 @@ export class ListMedicosComponent implements OnInit {
 
   constructor(
     private listMedicosService: ListMedicosService,
-    public dialog: MatDialog,
-    private toastr: ToastrService,
-    private router: Router
+    public dialog: MatDialog
     ) {
 
   }
@@ -70,7 +68,7 @@ export class ListMedicosComponent implements OnInit {
   }
 
   openModal(): void {
-    const dialogRef = this.dialog.open(ModalCreateMedicoComponent, {
+    this.dialog.open(ModalCreateMedicoComponent, {
       maxWidth: '90vw',
       maxHeight: '700px',
       height: '90%',

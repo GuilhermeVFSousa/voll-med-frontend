@@ -49,6 +49,7 @@ import { CustomMatPaginatorIntl } from './Utils/custom-mat-paginator-intl';
 import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
 import { RoleGuard } from './guard/role.guard';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 
 
@@ -73,7 +74,7 @@ const appRoutes: Routes = [
     { path: 'medicos', component: ListMedicosComponent},
     { path: 'pacientes', component: ListPacientesComponent },
     { path: 'consultas', component: ConsultasComponent },
-    { path: 'usuarios', component: ListMedicosComponent, canActivate: [RoleGuard]},
+    { path: 'usuarios', component: UsuariosComponent, canActivate: [RoleGuard]},
   ]},
 
 ];
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     ModalCreatePacienteComponent,
     ConsultasComponent,
     ModalCreateConsultaComponent,
-    ModalEditConsultaComponent
+    ModalEditConsultaComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
