@@ -111,29 +111,26 @@ export class ModalCreateMedicoComponent implements OnInit, AfterContentChecked {
     this.submitting = true;
 
     setTimeout(() => {
-      this.listMedicosService.insert(this.medico).subscribe(() => {
-        this.onNoClick();
-        this.toastr.success('Médico cadastrado com sucesso!');
-        this.router.navigate(['/']);
-      }, ex => {
-        console.log(ex);
-        this.submitting = false;
-        if(ex) {
-
-            this.toastr.error(ex.mensagem);
-            this.toastr.error(ex);
-
-        } else {
-          this.toastr.error(ex.mensagem);
-          this.toastr.error(ex);
+      this.listMedicosService.insert(this.medico).subscribe({
+        next: () => {
+          this.onNoClick();
+          this.toastr.success('Médico cadastrado com sucesso!');
+          location.reload;
+        },
+        error: (e) => {
+          console.log(e);
+          this.submitting = false;
+          this.toastr.error('Erro ao cadastrar o médico', 'Erro!');
+          let ers = e.error.errors
+          ers.forEach((e: { campo: any; error: any; }) => {
+            this.toastr.error(`O Campo "${e.campo}" ${e.error}`);
+          });
         }
       })
     }, 700);
   }
 
   checkValidity() {
-    console.log('estou aqui!!!!!!!!!!!!!!!!!!!');
-    console.log(this.formIsValid);
 
     if(
       this.nome.valid &&
@@ -149,7 +146,6 @@ export class ModalCreateMedicoComponent implements OnInit, AfterContentChecked {
       this.formIsValid = true;
       console.log(this.formIsValid);
 
-      //this.insert();
     } else {
       this.formIsValid = false
     }

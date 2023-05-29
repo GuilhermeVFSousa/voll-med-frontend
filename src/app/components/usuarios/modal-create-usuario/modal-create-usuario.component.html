@@ -1,3 +1,137 @@
-<p>
-  modal-create-usuario works!
-</p>
+<div class="container">
+  <div style="margin: 10px 0px 0px 25px;">
+    <h2>Cadastrar Usuário</h2>
+  </div>
+  <div class="dv-table">
+    <div mat-dialog-content class="column-align">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input
+          matInput
+          [(ngModel)]="usuario.nome"
+          name="nome"
+          maxlength="70"
+          autocomplete="off"
+          [formControl]="nome"
+          required
+          (change)="checkValidity()">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input
+          matInput
+          [(ngModel)]="usuario.login"
+          name="email"
+          maxlength="80"
+          autocomplete="off"
+          [formControl]="login"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          title="Informe um e-mail válido"
+          required
+          (change)="checkValidity()">
+          <mat-hint
+          *ngIf="login.invalid && usuario.login != ''"
+          style="color: var(--error);">
+          *Informe um e-mail válido
+          </mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          maxlength="15"
+          [type]="hidePassword ? 'password' : 'text'"
+          [(ngModel)]="usuario.password"
+          name="senha"
+          autocomplete="new-password"
+          [formControl]="senha"
+          required
+          (input)="checkValidity()">
+          <mat-icon
+            matSuffix
+            (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmação</mat-label>
+        <input
+          matInput
+          maxlength="15"
+          [type]="hidePassword ? 'password' : 'text'"
+          [(ngModel)]="senhaTextConfirmacao"
+          name="senhaConfirmacao"
+          autocomplete="new-password"
+          [formControl]="senhaConfirmacao"
+          required
+          (input)="checkValidity()">
+          <mat-icon
+          matSuffix
+          (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+        <mat-hint
+          *ngIf="!senhasIguais && senhasIguais != undefined"
+          style="color: var(--error);">
+        *As senhas não correspondem
+      </mat-hint>
+      </mat-form-field>
+      <div class="container-image">
+        <div class="image-form">
+          <div class="image-select">
+            <img [src]="croppedImage != undefined ? croppedImage : './../../../../assets/img/placeholder-user.png'" alt="">
+          </div>
+
+          <input
+            placeholder="t"
+            type="file"
+            id="fileInput"
+            name="fileInput"
+            accept="image/png, image/gif, image/jpeg"
+            (change)="fileChangeEvent($event)"
+          />
+          <span *ngIf="croppedImage == undefined || null">Selecione uma imagem</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-stroked-button [mat-dialog-close]="" (click)="onCancel()">Cancelar</button>
+  <button *ngIf="!submitting"
+  (click)="insert()"
+  [disabled]="!formIsValid || submitting"
+  class="btn-fillup"
+  style="width: 100px;" cdkFocusInitial
+  >
+    <span>Confirmar</span>
+  </button>
+  <mat-spinner *ngIf="submitting" style="height: 35px; width: 35px; margin-left: 25px;"></mat-spinner>
+</div>
+
+<div class="cropper_modal" *ngIf="openCropperModal" >
+  <div class="cropper_modal_content">
+    <div class="cropper_modal_content_description">
+      Ajuste a imagem
+    </div>
+    <image-cropper
+        [imageFile]="imageFile"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        [resizeToHeight]="800"
+        [resizeToWidth]="800"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (loadImageFailed)="loadImageFailed()">
+      </image-cropper>
+    <div class="cropper_modal_btn" >
+      <button
+        (click)="openCropperModal=false"
+        class="btn-fillup"
+        style="width: 100px;" cdkFocusInitial>
+        <span>Ajustar</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+

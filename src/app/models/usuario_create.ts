@@ -1,6 +1,8 @@
 export type UsuarioCreate = {
 
   login: string;
-  senha: string;
+  password: string;
+  nome: string;
+  imagem: string | null;
 
 }

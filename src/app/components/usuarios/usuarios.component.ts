@@ -13,6 +13,8 @@ import {
   faLock,
   faTrash
  } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCreateUsuarioComponent } from './modal-create-usuario/modal-create-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -38,7 +40,9 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.findAll();
@@ -54,7 +58,16 @@ export class UsuariosComponent implements OnInit {
   }
 
   openModal(): void{
-
+    this.dialog.open(ModalCreateUsuarioComponent, {
+      maxWidth: '700px',
+      maxHeight: '700px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal'
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   applyFilter(event: Event) {

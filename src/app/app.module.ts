@@ -45,11 +45,14 @@ import { ModalCreatePacienteComponent } from './components/modal-create-paciente
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
-import { CustomMatPaginatorIntl } from './Utils/custom-mat-paginator-intl';
+import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
 import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
 import { RoleGuard } from './guard/role.guard';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { ModalCreateUsuarioComponent } from './components/usuarios/modal-create-usuario/modal-create-usuario.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -92,7 +95,9 @@ const appRoutes: Routes = [
     ConsultasComponent,
     ModalCreateConsultaComponent,
     ModalEditConsultaComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ModalCreateUsuarioComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -122,6 +127,7 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatMomentDateModule,
+    ImageCropperModule
   ],
   entryComponents: [ModalCreateConsultaComponent],
   providers: [AuthInterceptorProvider, UnauthorizedInterceptorProvider, CdkScrollable, {

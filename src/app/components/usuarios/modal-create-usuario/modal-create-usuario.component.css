@@ -1,0 +1,125 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: column;
+  align-items: flex-start;
+}
+
+.dv-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+}
+
+.column-align {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+}
+
+.column-align mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background-color: white;
+}
+
+.container-image {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.image-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#fileInput {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.image-select img {
+  border-radius: 50%;
+  max-width: 100px;
+  min-width: 100px;
+}
+
+.cropper_modal {
+  z-index: 99999;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.cropper_modal_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.cropper_modal_btn {
+  margin-top: 10px;
+  width: 150px;
+  height: 45px;
+}
+
+@media only screen and (max-width: 767px) {
+  .dv-table {
+    display: flex;
+    align-items: flex-start;
+    flex-flow: column;
+  }
+  .dialog-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    align-items: center;
+  }
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #135f4d;
+}
