@@ -57,7 +57,7 @@
         <span class="user-email">{{usuario?.login}}</span>
       </div>
     </div>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="openModal()">
       <span>Minha conta</span>
     </button>
       <span>&nbsp;</span>
@@ -70,3 +70,7 @@
 </mat-menu>
 
 <router-outlet></router-outlet>
+
+<footer style="margin-top: 25px;">
+  &nbsp;
+</footer>

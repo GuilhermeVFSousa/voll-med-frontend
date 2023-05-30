@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-import { faUserMd, faUser, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
-import { an } from '@fullcalendar/core/internal-common';
+import { MatDialog } from '@angular/material/dialog';
+import { faArrowRightFromBracket, faUserMd } from '@fortawesome/free-solid-svg-icons';
 import { UsuarioDetails } from 'src/app/models/usuario_details';
 import { AuthService } from 'src/app/services/auth.service';
+
+import { ModalEditUsuarioComponent } from '../usuarios/modal-edit-usuario/modal-edit-usuario.component';
 
 
 
@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   activeMenu: string = '';
 
   constructor(
+    public dialog: MatDialog,
     private authService: AuthService) {
 
   }
@@ -33,6 +34,18 @@ export class NavbarComponent implements OnInit {
     console.log(this.isSuperUser());
   }
 
+  openModal(): void {
+    this.dialog.open(ModalEditUsuarioComponent, {
+      maxWidth: '700px',
+      maxHeight: '700px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal',
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   isSuperUser(): boolean {
     let superUser = this.authService.isSuperUser()
