@@ -1,6 +1,6 @@
 export type Medico = {
 
-    id?: number;
+    id: number | undefined;
     nome: string;
     email?: string;
     crm: string;

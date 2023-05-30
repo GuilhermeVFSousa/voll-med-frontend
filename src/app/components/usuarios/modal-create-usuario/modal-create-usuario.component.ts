@@ -51,22 +51,11 @@ export class ModalCreateUsuarioComponent implements OnInit {
   }
 
   checkValidity() {
-    if(this.usuario.password == this.senhaTextConfirmacao && (this.senhaConfirmacao.valid)) {
-      this.senhasIguais = true
-    } else {
-      this.senhasIguais = false
-    }
+    const confirmPassword = this.usuario.password == this.senhaTextConfirmacao && (this.senhaConfirmacao.valid)
+    this.senhasIguais = confirmPassword
 
-    if(
-      this.nome.valid &&
-      this.login.valid &&
-      this.senhasIguais == true
-    ) {
-      this.formIsValid = true;
-    } else {
-      this.formIsValid = false;
-    }
-
+    const validate = this.nome.valid && this.login.valid && this.senhasIguais == true
+    this.formIsValid = validate;
   }
 
   async fileChangeEvent(event: Event): Promise<void> {
@@ -127,8 +116,6 @@ export class ModalCreateUsuarioComponent implements OnInit {
         }
       })
     }, 600);
-
-    console.log(this.usuario);
 
   }
 

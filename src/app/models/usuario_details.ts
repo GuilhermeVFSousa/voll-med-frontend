@@ -1,6 +1,6 @@
 export type UsuarioDetails = {
 
-  id: number
+  id: number | null
   login: string;
   nome: string;
   imagem: string | null;
