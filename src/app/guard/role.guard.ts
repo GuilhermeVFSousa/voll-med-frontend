@@ -17,7 +17,6 @@ export class RoleGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     let authenticated = this.authService.isSuperUser();
-    console.log(authenticated);
 
     if(authenticated) {
       return true;
