@@ -11,41 +11,62 @@
 
   <div class="menu">
     <ul>
-      <li>
+      <li routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}">
         <a [routerLink]="['home']">
           Início
         </a>
       </li>
-      <li>
+      <li routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}">
         <a [routerLink]="['medicos']">
           Médicos
         </a>
       </li>
-      <li>
+      <li routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}">
         <a [routerLink]="['pacientes']">
           Pacientes
         </a>
       </li>
-      <li>
+      <li routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}">
         <a [routerLink]="['consultas']">
           Consultas
         </a>
       </li>
-      <li *ngIf="isSuperUser()">
+      <li *ngIf="isSuperUser()" routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}">
         <a [routerLink]="['usuarios']">
           Usuários
         </a>
       </li>
     </ul>
     <ul>
-      <li class="b-logout">
-        <a (click)="sair()">
-          Sair
-        <fa-icon [icon]="faArrowRightFromBracket" style="margin-left: 4px;"></fa-icon>
-      </a>
-      </li>
+      <div class="dv-imgUser" [mat-menu-trigger-for]="menu">
+        <img [src]="usuario!.imagem != null ? usuario!.imagem : './../../../../assets/img/placeholder-user.png'" alt="Imagem do usuário">
+      </div>
     </ul>
   </div>
 </nav>
+<mat-divider></mat-divider>
+
+<mat-menu #menu="matMenu" class="matMenu">
+  <div class="container-menu">
+    <div class="container-user">
+      <div class="dv-imgUser-large">
+        <img [src]="usuario!.imagem != null ? usuario!.imagem : './../../../../assets/img/placeholder-user.png'" alt="Imagem do usuário">
+      </div>
+      <div class="user-infos">
+        <span class="user-name">{{usuario?.nome}}</span>
+        <span class="user-email">{{usuario?.login}}</span>
+      </div>
+    </div>
+    <button mat-menu-item>
+      <span>Minha conta</span>
+    </button>
+      <span>&nbsp;</span>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Sair</span>
+    </button>
+  </div>
+
+</mat-menu>
 
 <router-outlet></router-outlet>
