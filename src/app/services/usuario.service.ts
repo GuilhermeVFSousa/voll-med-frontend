@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UsuarioDetails } from '../models/usuario_details';
 import { API_CONFIG } from '../config/api.config';
 import { UsuarioCreate } from '../models/usuario_create';
+import { UsuarioImagem } from '../models/usuario_imagem';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ findAll(): Observable<UsuarioDetails[]> {
 
 insert(usuario: UsuarioCreate): Observable<UsuarioCreate> {
   return this.http.post<UsuarioCreate>(`${API_CONFIG.baseUrl}/usuarios`, usuario);
+}
+
+getUserImage(email: string): Observable<UsuarioImagem> {
+  return this.http.get<UsuarioImagem>(`${API_CONFIG.baseUrl}/usuarios/${email}/imagem`);
 }
 
 }

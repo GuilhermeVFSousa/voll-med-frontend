@@ -6,6 +6,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import { Credenciais } from '../models/credenciais';
 import { Token } from './../models/token';
+import { UsuarioDetails } from '../models/usuario_details';
+import { UsuarioService } from './usuario.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +21,22 @@ export class AuthService {
     expiration:''
   });
 
+  user = new BehaviorSubject<UsuarioDetails>({
+    id: 0,
+    nome: '',
+    login: '',
+    imagem: null,
+    superUser: false,
+    ativo: false
+
+  })
+
   jwtService : JwtHelperService = new JwtHelperService();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private usuarioService: UsuarioService,
+    private toastrService: ToastrService) { }
 
   authenticate(creds: Credenciais):Observable<Token> {
     return this.http.post<Token>(`${API_CONFIG.baseUrl}/login`, creds, {
@@ -34,6 +50,7 @@ export class AuthService {
   successfulLogin(authToken: Token) {
     this.token.next(authToken);
     this.token.subscribe(data => console.log(data));
+    this.userDetails();
   }
 
   isAuthenticated() {
@@ -47,10 +64,38 @@ export class AuthService {
   isSuperUser() {
     let token = this.getToken();
     let decoded = (this.jwtService.decodeToken(token));
-    console.log(this.jwtService.decodeToken(token));
     if(decoded != null || decoded !=undefined) {
-      console.log(decoded.superUser)
+      console.log(decoded)
       return decoded.superUser
+    }
+  }
+
+  userDetails() {
+    let token = this.getToken();
+    let decoded = (this.jwtService.decodeToken(token));
+    if(decoded != null || decoded !=undefined) {
+      this.user.value.id = decoded.id;
+      this.user.value.login = decoded.sub;
+      this.user.value.nome = decoded.nome;
+      this.user.value.ativo = decoded.ativo;
+      this.user.value.superUser = decoded.superUser;
+
+      this.usuarioService.getUserImage(this.user.value.login).subscribe({
+          next: data => {
+            if(data.imagem == '') {
+              this.user.value.imagem = null;
+            } else {
+              this.user.value.imagem = data.imagem;
+            }
+          },
+          error: (e) => {
+              this.toastrService.error("Erro ao carregar a imagem do usuário");
+              console.log(e);
+          }
+        }
+      );
+      console.log('aqui>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+      console.log(this.user.value);
     }
   }
 
