@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -49,12 +50,14 @@ import { ModalCreateMedicoComponent } from './components/modal-create-medico/mod
 import { ModalCreatePacienteComponent } from './components/modal-create-paciente/modal-create-paciente.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ModalCreateUsuarioComponent } from './components/usuarios/modal-create-usuario/modal-create-usuario.component';
+import { ModalEditUsuarioComponent } from './components/usuarios/modal-edit-usuario/modal-edit-usuario.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { AuthGuard } from './guard/auth.guard';
 import { RoleGuard } from './guard/role.guard';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
 import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
+
 
 
 
@@ -101,7 +104,8 @@ const appRoutes: Routes = [
     ModalEditConsultaComponent,
     UsuariosComponent,
     ModalCreateUsuarioComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ModalEditUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -133,7 +137,8 @@ const appRoutes: Routes = [
     MatMomentDateModule,
     ImageCropperModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCheckboxModule
   ],
   entryComponents: [ModalCreateConsultaComponent],
   providers: [AuthInterceptorProvider, UnauthorizedInterceptorProvider, CdkScrollable, {

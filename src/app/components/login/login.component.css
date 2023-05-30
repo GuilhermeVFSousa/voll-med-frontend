@@ -8,11 +8,6 @@ body{
 
 }
 
-.logo {
-  margin-top: 55px;
-  z-index: 999;
-}
-
 #box{
     position: absolute;
     top: 0;
@@ -20,9 +15,11 @@ body{
     left: 0;
     right: 0;
     margin: auto;
-    height: 250px;
+    height: 100%;
+    max-height: 400px;
     max-width: 400px;
     border: 1px solid #F4EEFF;
+    border-radius: 10px 10px 0px 0px;
     padding: 2rem;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     background-color: #F4EEFF;
@@ -36,10 +33,25 @@ body{
     transform-origin: center right;
     transition: transform 1s;
 }
+
+.card .logo {
+ width: 100%;
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+ align-items: center;
+}
+
 .card .input-container{
     margin: 2rem  0;
     display: flex;
     position: relative;
+}
+
+.card img {
+  height: 150px;
+  display: flex;
+  position: relative;
 }
 .card.is-flipped {
     transform: translateX(-100%) rotateY(-180deg);
@@ -158,22 +170,10 @@ input[id="checkbox"]:checked::after {
     font-size: 14px;
 }
 
-.logo img {
-  height: 200px;
-}
-
 @media screen and (max-width: 600px) {
     #box{
 
-        margin-top: 220px;
         margin-left: 20px;
         margin-right: 20px;
-    }
-    .logo {
-      margin-top: 25px;
-    }
-    .logo img {
-      margin-top: 10px;
-      height: 150px;
     }
 }
