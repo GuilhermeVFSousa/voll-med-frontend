@@ -25,4 +25,19 @@ getUserImage(email: string): Observable<UsuarioImagem> {
   return this.http.get<UsuarioImagem>(`${API_CONFIG.baseUrl}/usuarios/${email}/imagem`);
 }
 
+getUserByEmail(email: string): Observable<UsuarioDetails> {
+  return this.http.get<UsuarioDetails>(`${API_CONFIG.baseUrl}/usuarios/${email}`);
+}
+
+updateUserByEmail(
+  email: string,
+  updatePassword: boolean,
+  imageRemove: boolean,
+  usuario: UsuarioCreate
+  ): Observable<UsuarioDetails> {
+  return this.http.put<UsuarioDetails>(
+    `${API_CONFIG.baseUrl}/usuarios/${email}?updatePassword=${updatePassword}&imageRemove=${imageRemove}`, usuario
+    );
+}
+
 }
