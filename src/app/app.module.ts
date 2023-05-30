@@ -16,11 +16,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,11 +33,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { ConsultasComponent } from './components/consultas/consultas.component';
 import { ModalCreateConsultaComponent } from './components/consultas/modal-create-consulta/modal-create-consulta.component';
+import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListMedicosComponent } from './components/list-medicos/list-medicos.component';
 import { ListPacientesComponent } from './components/list-pacientes/list-pacientes.component';
@@ -43,16 +48,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ModalCreateMedicoComponent } from './components/modal-create-medico/modal-create-medico.component';
 import { ModalCreatePacienteComponent } from './components/modal-create-paciente/modal-create-paciente.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AuthGuard } from './guard/auth.guard';
-import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
-import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
-import { ModalEditConsultaComponent } from './components/consultas/modal-edit-consulta/modal-edit-consulta.component';
-import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
-import { RoleGuard } from './guard/role.guard';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { ModalCreateUsuarioComponent } from './components/usuarios/modal-create-usuario/modal-create-usuario.component';
-import { ImageCropperModule } from 'ngx-image-cropper';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { AuthGuard } from './guard/auth.guard';
+import { RoleGuard } from './guard/role.guard';
+import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
+import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
+import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
+
+
 
 
 
@@ -127,7 +131,9 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatMomentDateModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatMenuModule,
+    MatDividerModule
   ],
   entryComponents: [ModalCreateConsultaComponent],
   providers: [AuthInterceptorProvider, UnauthorizedInterceptorProvider, CdkScrollable, {
