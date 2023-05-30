@@ -35,8 +35,17 @@ export class ConsultasComponent implements OnInit {
   filteredMedicos: Medico[] = [];
 
   medicoSelect: FormControl = new FormControl(null, Validators.required);
+ /*
+  medico: Medico = {
+    id: undefined,
+    nome: '',
+    email: '',
+    crm: '',
+    especialidade: ''
+  };
+  */
 
-  medico!: Medico;
+  medico?: Medico;
 
   INITIAL_EVENTS: EventInput[] = [];
 

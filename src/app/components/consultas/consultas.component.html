@@ -22,7 +22,7 @@
               (optionSelected)="findAllConsultasByMedico($event.option.value.id)"
             >
               <mat-option *ngFor="let medico of filteredMedicos" [value]="medico">
-                <span>{{ medico.nome }}</span>
+                <span>{{ medico?.nome }}</span>
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>

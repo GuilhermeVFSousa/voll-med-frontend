@@ -2,14 +2,13 @@ import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angu
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Endereco } from 'src/app/models/endereco';
 import { ViaCepService } from 'src/app/services/via-cep.service';
+import { FormValidators } from 'src/app/validators/FormValidators';
 
 import { MedicoCreate } from '../../models/medico_create';
 import { ListMedicosService } from '../../services/medico.service';
-import { FormValidators } from 'src/app/validators/FormValidators';
 
 @Component({
   selector: 'app-modal-create-medico',
@@ -68,7 +67,6 @@ export class ModalCreateMedicoComponent implements OnInit, AfterContentChecked {
     private listMedicosService: ListMedicosService,
     private viaCep: ViaCepService,
     private toastr: ToastrService,
-    private router: Router,
     private ref: ChangeDetectorRef,
     private formValidators: FormValidators
   ) {}
