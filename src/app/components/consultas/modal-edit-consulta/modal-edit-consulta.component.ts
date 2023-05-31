@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConsultaService } from '../../../services/consulta.service';
-import { Consulta } from '../../../models/Consulta';
+import { Consulta } from '../../../models/consulta';
 import moment from 'moment';
 
 @Component({

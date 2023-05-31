@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioService } from '../../../services/usuario.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { CropperPosition, ImageCroppedEvent } from 'ngx-image-cropper';
 import { UsuarioCreate } from 'src/app/models/usuario_create';
@@ -64,17 +64,38 @@ export class ModalEditUsuarioComponent implements OnInit {
     private authService: AuthService,
     private usuarioService: UsuarioService,
     private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      superUserAction: boolean,
+      userId: number | string,
+      userEmail: string},
     public dialogRef: MatDialogRef<ModalEditUsuarioComponent>
   ) { }
 
   ngOnInit() {
-    this.getUserDetails();
+    if(this.data.superUserAction) {
+      this.getUserDetailsBySuperUser();
+    } else {
+      this.getUserDetails();
+    }
   }
 
   getUserDetails() {
     this.authService.user.subscribe(data => {
       this.usuarioAtual = data;
       this.formIsValid = true;
+    });
+  }
+
+  getUserDetailsBySuperUser() {
+    this.usuarioService.getUserById(this.data.userId).subscribe({
+      next: (data) => {
+        this.usuarioAtual = data;
+        this.formIsValid = true;
+      },
+      error: (er) => {
+        this.toastr.error('Erro ao carregar as informações do usuário');
+        console.log(er);
+      }
     });
   }
 
@@ -163,27 +184,54 @@ export class ModalEditUsuarioComponent implements OnInit {
     }
 
     setTimeout(() => {
-      const userEmail = this.authService.user.value.login;
-      this.usuarioService.updateUserByEmail(userEmail, this.alterarSenha,this.removerImagem, this.usuarioEdit).subscribe({
-        next: () => {
-          this.authService.successfulLogin(this.authService.token.value);
-          this.onCancel();
-          this.toastr.success(`Usuário alterado com sucesso!`, '', {
-            positionClass: 'toast-bottom-right'
-          });
-        },
-        error: (er) => {
-          this.submitting = false;
-          this.toastr.error('Erro ao cadastrar o usuário', 'Erro!');
-          console.log(er);
-          let ers = er.error.errors
-          ers.forEach((e: { campo: any; error: any; }) => {
-            this.toastr.error(`O Campo "${e.campo}" ${e.error}`);
-          });
-        }
-      })
+      if(this.data.superUserAction) {
+        this.updateBySuperUser();
+      } else {
+        this.updateUser();
+      }
     }, 600);
 
+  }
+
+  updateUser() {
+    const userEmail = this.authService.user.value.login;
+    this.usuarioService.updateUserByEmail(userEmail, this.alterarSenha,this.removerImagem, this.usuarioEdit).subscribe({
+      next: () => {
+        this.authService.successfulLogin(this.authService.token.value);
+        this.onCancel();
+        this.toastr.success(`Usuário alterado com sucesso!`, '', {
+          positionClass: 'toast-bottom-right'
+        });
+      },
+      error: (er) => {
+        this.submitting = false;
+        this.toastr.error('Erro ao cadastrar o usuário', 'Erro!');
+        console.log(er);
+        let ers = er.error.errors
+        ers.forEach((e: { campo: any; error: any; }) => {
+          this.toastr.error(`O Campo "${e.campo}" ${e.error}`);
+        });
+      }
+    });
+  }
+
+  updateBySuperUser() {
+    const userEmail = this.data.userEmail;
+    this.usuarioService.updateUserByEmail(userEmail, this.alterarSenha,this.removerImagem, this.usuarioEdit).subscribe({
+      next: () => {
+        this.onCancel();
+        this.toastr.success(`Usuário alterado com sucesso!`);
+      },
+      error: (er) => {
+        this.submitting = false;
+        this.toastr.error('Erro ao cadastrar o usuário', 'Erro!');
+        console.log(er);
+        let ers = er.error.errors
+        ers.forEach((e: { campo: any; error: any; }) => {
+          this.toastr.error(`O Campo "${e.campo}" ${e.error}`);
+        });
+      }
+    });
   }
 
 }

@@ -22,6 +22,14 @@
   margin-bottom: 35px;
 }
 
+.title-header {
+  align-items: flex-end;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 .dv-head {
   width: 100%;
   align-items: flex-start;
@@ -59,7 +67,7 @@
 
 :root {
   --fc-list-event-dot-width: 10px;
-  --fc-list-event-hover-bg-color: var(--green-light-hover) !important;
+  --fc-list-event-hover-bg-color: var(--transparent-blue) !important;
 }
 
 :root {
@@ -88,7 +96,7 @@
   --fc-bg-event-color: #8fdf82;
   --fc-bg-event-opacity: 0.3;
   --fc-highlight-color: rgba(188,232,241,.3);
-  --fc-today-bg-color: rgba(40, 194, 255, 0.15) !important;
+  --fc-today-bg-color: var(--transparent-blue) !important;
   --fc-now-indicator-color: red;
 }
 

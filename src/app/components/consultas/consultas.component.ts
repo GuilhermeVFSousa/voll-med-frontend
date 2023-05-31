@@ -1,14 +1,13 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesRight, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { Consulta } from 'src/app/models/Consulta';
+import { Consulta } from 'src/app/models/consulta';
 import { Medico } from 'src/app/models/medico';
 import { ListMedicosService } from 'src/app/services/medico.service';
 
@@ -25,6 +24,7 @@ import { ModalEditConsultaComponent } from './modal-edit-consulta/modal-edit-con
 export class ConsultasComponent implements OnInit {
 
   faCirclePlus = faCirclePlus;
+  faAnglesRight = faAnglesRight;
 
   selectInfo!: DateSelectArg;
 
@@ -35,15 +35,6 @@ export class ConsultasComponent implements OnInit {
   filteredMedicos: Medico[] = [];
 
   medicoSelect: FormControl = new FormControl(null, Validators.required);
- /*
-  medico: Medico = {
-    id: undefined,
-    nome: '',
-    email: '',
-    crm: '',
-    especialidade: ''
-  };
-  */
 
   medico?: Medico;
 

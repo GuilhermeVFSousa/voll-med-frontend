@@ -8,8 +8,6 @@ import { faAnglesRight, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { Medico } from '../../models/medico';
 import { ListMedicosService } from '../../services/medico.service';
 import { ModalCreateMedicoComponent } from '../modal-create-medico/modal-create-medico.component';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 
 const paginatorLabels = {
