@@ -41,6 +41,9 @@ export class NavbarComponent implements OnInit {
       height: '90%',
       width: '90%',
       panelClass: 'full-screen-modal',
+      data: {
+        superUserAction: false
+      }
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.ngOnInit();

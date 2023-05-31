@@ -11,10 +11,15 @@ import {
   faCircleXmark,
   faPenToSquare,
   faLock,
-  faTrash
+  faLockOpen,
+  faTrash,
+  faUserLock
  } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateUsuarioComponent } from './modal-create-usuario/modal-create-usuario.component';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ModalEditUsuarioComponent } from './modal-edit-usuario/modal-edit-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -29,11 +34,15 @@ export class UsuariosComponent implements OnInit {
   faCircleXmark = faCircleXmark;
   faPenToSquare = faPenToSquare;
   faLock = faLock;
+  faLockOpen = faLockOpen;
   faTrash = faTrash;
+  faUserLock = faUserLock;
+
+  confirmationDialog = false;
 
   usuarios: UsuarioDetails[] = [];
 
-  displayedColumns: string[] = ['id', 'email', 'superUser', 'actions']
+  displayedColumns: string[] = ['id', 'activeUser', 'email', 'nome', 'superUser', 'actions']
 
   dataSource = new MatTableDataSource<UsuarioDetails>(this.usuarios);
 
@@ -42,6 +51,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
+    private toastr: ToastrService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -57,6 +67,46 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
+  inactiveUser(id: string | number): void {
+    this.usuarioService.inactiveUser(id).subscribe({
+      next: () => {
+        this.ngOnInit();
+        this.toastr.success('Usuário inativado com sucesso!');
+      },
+      error: (er) => {
+        this.toastr.error('Falha ao inativar o usuário');
+        console.log(er);
+      }
+    })
+  }
+
+  activeUser(id: string | number): void {
+    this.usuarioService.activeUser(id).subscribe({
+      next: () => {
+        this.ngOnInit();
+        this.toastr.success('Usuário ativado com sucesso!');
+      },
+      error: (er) => {
+        this.toastr.error('Falha ao ativar o usuário');
+        console.log(er);
+      }
+    })
+  }
+
+  deleteUser(id: string | number): void {
+    this.usuarioService.deleteUser(id).subscribe({
+      next: () => {
+        this.ngOnInit();
+        this.toastr.success('Usuário excluído com sucesso!');
+      },
+      error: (er) => {
+        this.toastr.error('Falha ao excluir o usuário');
+        console.log(er);
+      }
+    });
+  }
+
+
   openModal(): void{
     this.dialog.open(ModalCreateUsuarioComponent, {
       maxWidth: '700px',
@@ -67,6 +117,67 @@ export class UsuariosComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.ngOnInit();
+    });
+  }
+
+  openEditUserDialog(id: number | string, email: string): void {
+    this.dialog.open(ModalEditUsuarioComponent, {
+      maxWidth: '700px',
+      maxHeight: '700px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal',
+      data: {
+        superUserAction: true,
+        userId: id,
+        userEmail: email
+      }
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  openConfirmationDialog(id: string | number, name: string | null, actionType: string): void{
+    let messageDialog = '';
+    switch(actionType) {
+      case 'INATIVAR': messageDialog = `Deseja inativar o usuário ${name}?`;
+      break;
+      case 'ATIVAR': messageDialog = `Deseja ativar o usuário ${name}?`;
+      break;
+      case 'DELETAR': messageDialog = `Deseja excluir o usuário ${name}?`;
+      break;
+      default: messageDialog = 'Mensagem inválida';
+    }
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      maxHeight: '170px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal',
+      data: {
+        message: messageDialog,
+        multipleButtons: true,
+        buttonConfirmation: 'Confirmar',
+        buttonCancel: 'Cancelar',
+        confirmAction: false
+
+      }
+    });
+    dialogRef.afterClosed().subscribe(confirmation => {
+      this.confirmationDialog = confirmation;
+      console.log(confirmation)
+      console.log(actionType)
+      if(confirmation && actionType == 'DELETAR'){
+        this.deleteUser(id);
+      }
+      if(confirmation && actionType == 'INATIVAR'){
+        this.inactiveUser(id);
+      }
+      if(confirmation && actionType == 'ATIVAR'){
+        this.activeUser(id);
+      }
     });
   }
 

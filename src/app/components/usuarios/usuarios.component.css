@@ -122,13 +122,16 @@
     min-width: 75px;
   }
 
-  .actions fa-icon {
+  fa-icon {
     cursor: pointer;
   }
 
-  .actions fa-icon:hover {
-    transition: transform 0.2s ease-in-out;
-    transform: scale(1.3)
+  fa-icon:hover {
+    filter: brightness(0.6);
+  }
+
+  .inactive-icon fa-icon:hover, .superUser fa-icon:hover {
+    cursor: default;
   }
 
   .icon-actions {
