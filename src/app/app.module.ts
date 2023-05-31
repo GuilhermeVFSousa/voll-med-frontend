@@ -29,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -57,6 +58,7 @@ import { RoleGuard } from './guard/role.guard';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
 import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
+
 
 
 
@@ -138,7 +140,9 @@ const appRoutes: Routes = [
     ImageCropperModule,
     MatMenuModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
+
   ],
   entryComponents: [ModalCreateConsultaComponent],
   providers: [AuthInterceptorProvider, UnauthorizedInterceptorProvider, CdkScrollable, {

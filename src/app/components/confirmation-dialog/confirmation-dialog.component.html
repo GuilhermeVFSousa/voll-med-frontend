@@ -1,3 +1,28 @@
-<p>
-  confirmation-dialog works!
-</p>
+<div class="dialog-body">
+  <div class="dialog-message">
+    <span class="message">{{data.message}}</span>
+  </div>
+</div>
+
+<div *ngIf="data.multipleButtons" mat-dialog-actions class="dialog-actions">
+  <button
+    mat-stroked-button
+    (click)="onCancel(false)">
+    {{data.buttonCancel}}
+  </button>
+  <button
+    (click)="onCancel(true)"
+    class="btn-fillup"
+    style="width: 100px;" cdkFocusInitial>
+    <span>{{data.buttonConfirmation}}</span>
+  </button>
+</div>
+
+<div *ngIf="!data.multipleButtons" mat-dialog-actions class="dialog-actions">
+  <button
+    class="btn-fillup"
+    style="width: 80px;"
+    (click)="onCancel(false)">
+    {{data.singleButtonText || 'OK'}}
+  </button>
+</div>
