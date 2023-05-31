@@ -26,7 +26,11 @@ getUserImage(email: string): Observable<UsuarioImagem> {
 }
 
 getUserByEmail(email: string): Observable<UsuarioDetails> {
-  return this.http.get<UsuarioDetails>(`${API_CONFIG.baseUrl}/usuarios/${email}`);
+  return this.http.get<UsuarioDetails>(`${API_CONFIG.baseUrl}/usuarios/email/${email}`);
+}
+
+getUserById(id: number | string): Observable<UsuarioDetails> {
+  return this.http.get<UsuarioDetails>(`${API_CONFIG.baseUrl}/usuarios/id/${id}`);
 }
 
 updateUserByEmail(
@@ -35,9 +39,19 @@ updateUserByEmail(
   imageRemove: boolean,
   usuario: UsuarioCreate
   ): Observable<UsuarioDetails> {
-  return this.http.put<UsuarioDetails>(
-    `${API_CONFIG.baseUrl}/usuarios/${email}?updatePassword=${updatePassword}&imageRemove=${imageRemove}`, usuario
-    );
+  return this.http.put<UsuarioDetails>(`${API_CONFIG.baseUrl}/usuarios/${email}?updatePassword=${updatePassword}&imageRemove=${imageRemove}`, usuario);
+}
+
+inactiveUser(id: string | number):Observable<void> {
+  return this.http.delete<void>(`${API_CONFIG.baseUrl}/usuarios/inativar/${id}`);
+}
+
+activeUser(id: string | number):Observable<void> {
+  return this.http.put<void>(`${API_CONFIG.baseUrl}/usuarios/ativar/${id}`, null);
+}
+
+deleteUser(id: string | number):Observable<void> {
+  return this.http.delete<void>(`${API_CONFIG.baseUrl}/usuarios/${id}`);
 }
 
 }
