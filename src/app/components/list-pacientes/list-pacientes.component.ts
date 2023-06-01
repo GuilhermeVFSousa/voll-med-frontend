@@ -2,13 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { faAnglesRight, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesRight, faCirclePlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/models/paciente';
 import { PacienteService } from '../../services/paciente.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ModalCreatePacienteComponent } from '../modal-create-paciente/modal-create-paciente.component';
+import { ModalEditPacienteComponent } from './modal-edit-paciente/modal-edit-paciente.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -20,10 +22,12 @@ export class ListPacientesComponent implements OnInit{
 
   faCirclePlus = faCirclePlus;
   faAnglesRight = faAnglesRight;
+  faPenToSquare = faPenToSquare;
+  faTrash = faTrash;
 
   pacientes: Paciente[] = [];
 
-  displayedColumns: string[] = ['nome', 'cpf', 'email']
+  displayedColumns: string[] = ['nome', 'cpf', 'email', 'actions']
 
   dataSource = new MatTableDataSource<Paciente>(this.pacientes);
 
@@ -32,9 +36,7 @@ export class ListPacientesComponent implements OnInit{
 
   constructor(
     private pacienteService: PacienteService,
-    public dialog: MatDialog,
-    private toastr: ToastrService,
-    private router: Router
+    public dialog: MatDialog
   ) {
 
   }
@@ -53,9 +55,25 @@ export class ListPacientesComponent implements OnInit{
     console.log(this.pacientes);
   }
 
+  deletePaciente(id: number | string) {
+
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openEditDialog(id: number | string):void {
+    const dialogRef = this.dialog.open(ModalEditPacienteComponent, {
+      maxWidth: '1000px',
+      maxHeight: '700px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal',
+      data: { id: id }
+    });
+    dialogRef.afterClosed().subscribe(() => this.ngOnInit());
   }
 
   openModal(): void {
@@ -65,6 +83,31 @@ export class ListPacientesComponent implements OnInit{
       height: '90%',
       width: '90%',
       panelClass: 'full-screen-modal',
+    });
+  }
+
+  openConfirmationDialog(id: string | number, name: string | null): void{
+    let messageDialog = `Deseja excluir o usuário ${name}?`;
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      maxHeight: '170px',
+      height: '90%',
+      width: '90%',
+      panelClass: 'full-screen-modal',
+      data: {
+        message: messageDialog,
+        multipleButtons: true,
+        buttonConfirmation: 'Confirmar',
+        buttonCancel: 'Cancelar',
+        confirmAction: false
+
+      }
+    });
+    dialogRef.afterClosed().subscribe(confirmation => {
+      if(confirmation){
+        this.deletePaciente(id);
+      }
     });
   }
 
