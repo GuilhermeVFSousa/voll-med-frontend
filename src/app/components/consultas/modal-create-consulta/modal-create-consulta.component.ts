@@ -64,7 +64,7 @@ export class ModalCreateConsultaComponent implements OnInit {
 
   idPaciente: FormControl = new FormControl('', Validators.required);
   dataInfo: FormControl = new FormControl('', Validators.required);
-  duracao: FormControl = new FormControl('null', Validators.required);
+  duracao: FormControl = new FormControl('', Validators.required);
 
   selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
   selectedDate: Date = new Date();
@@ -97,7 +97,6 @@ export class ModalCreateConsultaComponent implements OnInit {
       if(data.id != undefined) {
         this.medico = data;
       }
-      console.log("aqqqqq>>>>>>>" + this.medico)
 
     });
 
@@ -117,7 +116,6 @@ export class ModalCreateConsultaComponent implements OnInit {
       this.medicos = data;
       this.filteredMedicos = this.medicos;
     });
-    console.log(this.medicos);
   }
 
   findAllPacientes(): void {
@@ -125,14 +123,11 @@ export class ModalCreateConsultaComponent implements OnInit {
       this.pacientes = data;
       this.filteredPacientes = this.pacientes;
     });
-    console.log(this.pacientes);
   }
 
   getEspecialidades(): void {
     this.listMedicosService.findEspecialidades().subscribe(data => {
       this.especialidades = data;
-      console.log(data);
-      console.log(`ESPECIALIDADES ${this.especialidades}`);
     })
   }
 
@@ -141,8 +136,6 @@ export class ModalCreateConsultaComponent implements OnInit {
   }
 
   checkValidity() {
-    console.log('estou aqui!!!!!!!!!!!!!!!!!!!');
-    console.log(this.formIsValid);
 
     if(
       this.pacienteSelect.valid &&
@@ -150,7 +143,6 @@ export class ModalCreateConsultaComponent implements OnInit {
       this.duracao.valid
     ) {
       this.formIsValid = true;
-      console.log(this.formIsValid);
 
     } else {
       this.formIsValid = false
@@ -193,6 +185,8 @@ export class ModalCreateConsultaComponent implements OnInit {
   }
 
   insert() {
+    this.submitting = true;
+
     this.consulta.duracao = this.duracaoSelected;
     this.consulta.idPaciente = this.paciente?.id!;
     this.consulta.idMedico = this.medico?.id;
@@ -200,35 +194,29 @@ export class ModalCreateConsultaComponent implements OnInit {
       console.log(this.consulta);
     }, 100);
 
-    this.consultaService.createConsulta(this.consulta)
-    .pipe(
-      tap(() => {
-        this.toastr.success(`Consulta Agendada!
-        Paciente: ${this.paciente?.nome}
-        Horário? ${this.consulta.data}`);
+    this.consultaService.createConsulta(this.consulta).subscribe({
+      next: () => {
+        this.toastr.success(`Consulta Agendada!\n
+        Paciente: ${this.paciente?.nome}\n
+        Horário: ${this.consulta.data}`);
         this.dialogRef.close();
         this.router.navigate(['consultas']);
-      })
-    )
-    .subscribe(
-      {
-        error: error => {
-          if(error.error.errors) {
-            error.error.errors.forEach((e: { error: string | undefined; campo: string | undefined; }) => {
-              this.toastr.error(e.campo + ' ' + e.error);
-            })
-          } else {
-            this.toastr.error(error.error.mensagem);
-          }
+      },
+      error: (e) => {
+        this.submitting = false;
 
-
+        if(Array.isArray(e.error.message)) {
+          e.error.message.forEach((er: { error: any,  campo: any}) => {
+            this.toastr.error(er.campo + ' ' + er.error);
+          });
+        } else {
+          this.toastr.error(e.error.message);
         }
       }
-    );
+    })
   }
 
   styleDataTimerPicker() {
-    alert('tô aqui!')
     const elements_1 = this.elementRef.nativeElement.querySelectorAll('.mat-calendar-body-selected');
     for (const element of elements_1) {
       element.classList.add('mat-calendar-body-selected');

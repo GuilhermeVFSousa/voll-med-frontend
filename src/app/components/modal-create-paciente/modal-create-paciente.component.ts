@@ -1,6 +1,5 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -55,10 +54,7 @@ export class ModalCreatePacienteComponent implements OnInit, AfterContentChecked
   logradouro: FormControl = new FormControl(null, Validators.required);
   bairro: FormControl = new FormControl(null, Validators.required);
   numero: FormControl = new FormControl(null, Validators.required);
-
   selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
-
-  matcher = new ErrorStateMatcher();
 
   constructor(
     public dialogRef: MatDialogRef<ModalCreatePacienteComponent>,
@@ -75,7 +71,6 @@ export class ModalCreatePacienteComponent implements OnInit, AfterContentChecked
   }
 
   ngOnInit(): void {
-    this.getAddress('13575702');
   }
 
   getAddress(cep:string): void {
@@ -99,31 +94,29 @@ export class ModalCreatePacienteComponent implements OnInit, AfterContentChecked
     this.submitting = true;
 
     setTimeout(() => {
-      this.pacienteService.insert(this.paciente).subscribe(() => {
-        this.onNoClick();
-        this.toastr.success('Paciente cadastrado com sucesso!');
-        this.router.navigate(['/']);
-      }, ex => {
-        console.log(ex);
-        this.submitting = false;
-        if(ex) {
+      this.pacienteService.insert(this.paciente).subscribe({
+        next: () => {
+          this.onNoClick();
+          this.toastr.success('Paciente cadastrado com sucesso!');
+          this.router.navigate(['/']);
+        },
+        error: (e) => {
+          this.submitting = false;
 
-            this.toastr.error(ex.mensagem);
-            this.toastr.error(ex);
-
-        } else {
-          this.toastr.error(ex.mensagem);
-          this.toastr.error(ex);
+          if(Array.isArray(e.error.message)) {
+            e.error.message.forEach((er: { error: any,  campo: any}) => {
+              this.toastr.error(er.campo + ' ' + er.error);
+            });
+          } else {
+            this.toastr.error(e.error.message);
+          }
         }
-      })
+      });
     }, 700);
   }
 
   checkValidity() {
-    console.log('estou aqui!!!!!!!!!!!!!!!!!!!');
-    console.log(this.formIsValid);
-
-    if(
+    const validate = (
       this.nome.valid &&
       this.email.valid &&
       this.cpf.valid &&
@@ -132,14 +125,9 @@ export class ModalCreatePacienteComponent implements OnInit, AfterContentChecked
       this.logradouro.valid &&
       this.bairro.valid &&
       this.numero.valid
-    ) {
-      this.formIsValid = true;
-      console.log(this.formIsValid);
+    );
 
-      //this.insert();
-    } else {
-      this.formIsValid = false
-    }
+    this.formIsValid = validate;
 
   }
 

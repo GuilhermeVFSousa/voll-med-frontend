@@ -116,13 +116,15 @@ export class ModalCreateMedicoComponent implements OnInit, AfterContentChecked {
           location.reload;
         },
         error: (e) => {
-          console.log(e);
           this.submitting = false;
-          this.toastr.error('Erro ao cadastrar o médico', 'Erro!');
-          let ers = e.error.errors
-          ers.forEach((e: { campo: any; error: any; }) => {
-            this.toastr.error(`O Campo "${e.campo}" ${e.error}`);
-          });
+
+          if(Array.isArray(e.error.message)) {
+            e.error.message.forEach((er: { error: any,  campo: any}) => {
+              this.toastr.error(er.campo + ' ' + er.error);
+            });
+          } else {
+            this.toastr.error(e.error.message);
+          }
         }
       })
     }, 700);

@@ -65,7 +65,6 @@ export class AuthService {
     let token = this.getToken();
     let decoded = (this.jwtService.decodeToken(token));
     if(decoded != null || decoded !=undefined) {
-      console.log(decoded)
       return decoded.superUser
     }
   }

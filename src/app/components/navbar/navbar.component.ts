@@ -30,8 +30,6 @@ export class NavbarComponent implements OnInit {
     this.authService.user.subscribe(
       data => this.usuario = data
     );
-    console.log(this.usuario);
-    console.log(this.isSuperUser());
   }
 
   openModal(): void {
