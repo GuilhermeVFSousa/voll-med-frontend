@@ -152,7 +152,7 @@ export class UsuariosComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: '400px',
-      maxHeight: '170px',
+      maxHeight: '150px',
       height: '90%',
       width: '90%',
       panelClass: 'full-screen-modal',
@@ -160,9 +160,7 @@ export class UsuariosComponent implements OnInit {
         message: messageDialog,
         multipleButtons: true,
         buttonConfirmation: 'Confirmar',
-        buttonCancel: 'Cancelar',
-        confirmAction: false
-
+        buttonCancel: 'Cancelar'
       }
     });
     dialogRef.afterClosed().subscribe(confirmation => {
