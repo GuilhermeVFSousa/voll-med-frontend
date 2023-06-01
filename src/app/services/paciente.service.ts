@@ -30,6 +30,10 @@ export class PacienteService {
   update(id: number | string, paciente: PacienteDetails): Observable<PacienteDetails> {
     return this.http.put<PacienteDetails>(`${API_CONFIG.baseUrl}/pacientes/${id}`, paciente);
   }
+
+  delete(id: number | string): Observable<void> {
+    return this.http.delete<void>(`${API_CONFIG.baseUrl}/pacientes/${id}`);
+  }
 }
 
 interface getResponsePaciente {

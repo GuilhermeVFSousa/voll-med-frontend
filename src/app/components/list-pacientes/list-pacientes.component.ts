@@ -36,6 +36,7 @@ export class ListPacientesComponent implements OnInit{
 
   constructor(
     private pacienteService: PacienteService,
+    private toastr: ToastrService,
     public dialog: MatDialog
   ) {
 
@@ -56,7 +57,18 @@ export class ListPacientesComponent implements OnInit{
   }
 
   deletePaciente(id: number | string) {
-
+    this.pacienteService.delete(id).subscribe({
+      next: () => {
+        this.ngOnInit();
+        this.toastr.success(`Paciente excluído com sucesso`);
+      },
+      error: (e) => {
+        this.toastr.error(`Erro ao tentar excluir o paciente`);
+        if(e.error.message) {
+          this.toastr.error(e.error.message);
+        }
+      }
+    })
   }
 
   applyFilter(event: Event) {
@@ -87,11 +99,11 @@ export class ListPacientesComponent implements OnInit{
   }
 
   openConfirmationDialog(id: string | number, name: string | null): void{
-    let messageDialog = `Deseja excluir o usuário ${name}?`;
+    let messageDialog = `Deseja excluir o(a) paciente ${name}?`;
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: '400px',
-      maxHeight: '170px',
+      maxHeight: '150px',
       height: '90%',
       width: '90%',
       panelClass: 'full-screen-modal',
@@ -99,8 +111,7 @@ export class ListPacientesComponent implements OnInit{
         message: messageDialog,
         multipleButtons: true,
         buttonConfirmation: 'Confirmar',
-        buttonCancel: 'Cancelar',
-        confirmAction: false
+        buttonCancel: 'Cancelar'
 
       }
     });
