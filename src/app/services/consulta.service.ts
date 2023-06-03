@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Consulta } from '../models/consulta';
 import { API_CONFIG } from '../config/api.config';
 import { ConsultaCreate } from '../models/consulta-create';
+import { Consulta } from 'src/app/models/consulta';
 
 @Injectable({
   providedIn: 'root'
