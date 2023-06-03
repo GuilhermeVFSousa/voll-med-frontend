@@ -57,8 +57,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { RoleGuard } from './guard/role.guard';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
-import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
 import { ModalEditPacienteComponent } from './components/list-pacientes/modal-edit-paciente/modal-edit-paciente.component';
+import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl';
 
 
 
