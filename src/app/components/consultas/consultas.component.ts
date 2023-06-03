@@ -13,7 +13,7 @@ import { ListMedicosService } from 'src/app/services/medico.service';
 import { ConsultaService } from '../../services/consulta.service';
 import { ModalCreateConsultaComponent } from './modal-create-consulta/modal-create-consulta.component';
 import { ModalEditConsultaComponent } from './modal-edit-consulta/modal-edit-consulta.component';
-import { Consulta } from 'src/app/models/consulta';
+import { Consulta } from 'src/app/models/consulta_';
 
 @Component({
   selector: 'app-consultas',

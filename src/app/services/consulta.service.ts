@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import { ConsultaCreate } from '../models/consulta-create';
-import { Consulta } from '../models/consulta';
+import { Consulta } from '../models/consulta_';
 
 @Injectable({
   providedIn: 'root'

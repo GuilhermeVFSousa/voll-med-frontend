@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConsultaService } from '../../../services/consulta.service';
 import moment from 'moment';
-import { Consulta } from 'src/app/models/consulta';
+import { Consulta } from 'src/app/models/consulta_';
 
 @Component({
   selector: 'app-modal-edit-consulta',
