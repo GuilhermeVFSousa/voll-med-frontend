@@ -33,6 +33,31 @@
   margin-bottom: 10px;
 }
 
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 44px;
+  min-width: 25px;
+}
+
+fa-icon {
+  cursor: pointer;
+}
+
+fa-icon:hover {
+  filter: brightness(0.6);
+}
+
+
+.icon-actions {
+  color: var(--grey);
+}
+
+.icon-actions-trash {
+  color: var(--error);
+}
+
 @media only screen and (max-width: 767px) {
   .container{
     width: 95%;

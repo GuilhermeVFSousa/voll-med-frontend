@@ -20,7 +20,7 @@ export class FormValidators {
     }
   }
 
-  public formatPhone(tel:string):string {
+  public static formatPhone(tel:string):string {
     tel = tel.replace(/\D/g, '');
 
     if (tel.length > 2) {
@@ -37,7 +37,7 @@ export class FormValidators {
     return tel;
   }
 
-  public formatCPF(cpf:string):string {
+  public static formatCPF(cpf:string):string {
     cpf = cpf.replace(/\D/g, '');
 
     if (cpf.length > 3) {

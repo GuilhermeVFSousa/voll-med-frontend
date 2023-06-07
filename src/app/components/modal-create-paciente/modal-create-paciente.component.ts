@@ -62,8 +62,7 @@ export class ModalCreatePacienteComponent implements OnInit, AfterContentChecked
     private viaCep: ViaCepService,
     private toastr: ToastrService,
     private router: Router,
-    private ref: ChangeDetectorRef,
-    private formValidators: FormValidators
+    private ref: ChangeDetectorRef
   ) {}
 
   ngAfterContentChecked(): void {
@@ -132,11 +131,11 @@ export class ModalCreatePacienteComponent implements OnInit, AfterContentChecked
   }
 
   formatPhone() {
-    this.paciente.telefone = this.formValidators.formatPhone(this.paciente.telefone);
+    this.paciente.telefone = FormValidators.formatPhone(this.paciente.telefone);
   }
 
   formatCPF() {
-    this.paciente.cpf = this.formValidators.formatCPF(this.paciente.cpf);
+    this.paciente.cpf = FormValidators.formatCPF(this.paciente.cpf);
   }
 
 }

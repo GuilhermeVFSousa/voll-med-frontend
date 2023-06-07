@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map, BehaviorSubject } from 'rxjs';
 import { Medico } from '../models/medico';
 import { MedicoCreate } from '../models/medico_create';
+import { MedicoDetails } from '../models/medico_details';
 
 const medicoPadrao: Medico = {
   id: undefined,
@@ -28,12 +29,20 @@ export class ListMedicosService {
     );
   }
 
-  findById(id: number | string): Observable<Medico> {
-    return this.http.get<Medico>(`${API_CONFIG.baseUrl}/medicos/${id}`);
+  findById(id: number | string): Observable<MedicoDetails> {
+    return this.http.get<MedicoDetails>(`${API_CONFIG.baseUrl}/medicos/${id}`);
   }
 
   insert(medico: MedicoCreate): Observable<MedicoCreate> {
     return this.http.post<MedicoCreate>(`${API_CONFIG.baseUrl}/medicos`, medico);
+  }
+
+  update(id: number | string, medico: MedicoDetails): Observable<MedicoDetails> {
+    return this.http.put<MedicoDetails>(`${API_CONFIG.baseUrl}/medicos/${id}`, medico);
+  }
+
+  delete(id: number | string): Observable<void> {
+    return this.http.delete<void>(`${API_CONFIG.baseUrl}/medicos/${id}`);
   }
 
   findEspecialidades():Observable<string[]> {

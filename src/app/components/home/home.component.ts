@@ -25,5 +25,12 @@ faCalendarDays = faCalendarDays;
     this.router.navigate(['/medicos']);
   }
 
+  redirectPac() {
+    this.router.navigate(['/pacientes']);
+  }
+
+  redirectCon() {
+    this.router.navigate(['/consultas']);
+  }
 
 }

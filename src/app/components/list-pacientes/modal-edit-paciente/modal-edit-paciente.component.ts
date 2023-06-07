@@ -20,8 +20,6 @@ export class ModalEditPacienteComponent implements OnInit {
   submitting = false;
   formIsValid = false;
 
-  especialidades: string[] = [];
-
   paciente: PacienteDetails = {
     id: undefined,
     nome: '',
@@ -54,7 +52,6 @@ export class ModalEditPacienteComponent implements OnInit {
     private dialogRef: MatDialogRef<ModalEditPacienteComponent>,
     private pacienteService: PacienteService,
     private toastr: ToastrService,
-    private formValidators: FormValidators,
     private viaCep: ViaCepService) { }
 
   ngOnInit() {
@@ -97,9 +94,6 @@ export class ModalEditPacienteComponent implements OnInit {
     })
   }
 
-  delete() {
-
-  }
 
   getAddress(cep:string): void {
     this.viaCep.getAddress(cep).subscribe(data => {
@@ -125,21 +119,16 @@ export class ModalEditPacienteComponent implements OnInit {
       this.numero.valid
     );
 
-    let a: boolean[] = [this.nome.valid, this.email.valid, this.cpf.valid, this.telefone.valid, this.cep.valid, this.logradouro.valid, this.bairro.valid, this.numero.valid]
-
     this.formIsValid = validate;
-    a.forEach(aa => {
-      console.log(aa);
-    })
 
   }
 
   formatPhone() {
-    this.paciente.telefone = this.formValidators.formatPhone(this.paciente.telefone);
+    this.paciente.telefone = FormValidators.formatPhone(this.paciente.telefone);
   }
 
   formatCPF() {
-    this.paciente.cpf = this.formValidators.formatCPF(this.paciente.cpf);
+    this.paciente.cpf = FormValidators.formatCPF(this.paciente.cpf);
   }
 
 }

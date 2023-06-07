@@ -59,6 +59,7 @@ import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
 import { UnauthorizedInterceptorProvider } from './interceptors/unauthorized-interceptor';
 import { ModalEditPacienteComponent } from './components/list-pacientes/modal-edit-paciente/modal-edit-paciente.component';
 import { CustomMatPaginatorIntl } from './utils/custom-mat-paginator-intl_';
+import { ModalEditMedicoComponent } from './components/list-medicos/modal-edit-medico/modal-edit-medico.component';
 
 
 
@@ -109,7 +110,8 @@ const appRoutes: Routes = [
     ModalCreateUsuarioComponent,
     ConfirmationDialogComponent,
     ModalEditUsuarioComponent,
-    ModalEditPacienteComponent
+    ModalEditPacienteComponent,
+    ModalEditMedicoComponent
   ],
   imports: [
     BrowserModule,

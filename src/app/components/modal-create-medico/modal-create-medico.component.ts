@@ -67,8 +67,7 @@ export class ModalCreateMedicoComponent implements OnInit, AfterContentChecked {
     private listMedicosService: ListMedicosService,
     private viaCep: ViaCepService,
     private toastr: ToastrService,
-    private ref: ChangeDetectorRef,
-    private formValidators: FormValidators
+    private ref: ChangeDetectorRef
   ) {}
 
   ngAfterContentChecked(): void {
@@ -153,7 +152,7 @@ export class ModalCreateMedicoComponent implements OnInit, AfterContentChecked {
   }
 
   formatPhone() {
-    this.medico.telefone = this.formValidators.formatPhone(this.medico.telefone);
+    this.medico.telefone = FormValidators.formatPhone(this.medico.telefone);
   }
 
 }
